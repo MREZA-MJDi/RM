@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080809">
+  <meta name="description" content="A pointer-responsive 3D cube study by RM.">
+  <title>Spatial Cube — RM Lab</title>
+  <link rel="stylesheet" href="../../assets/rm.css">
+  <link rel="stylesheet" href="./style.css">
+  <script defer src="./script.js"></script>
+</head>
+<body class="experience-page cube-page">
+  <div class="experience-topbar"><a class="experience-brand" href="../../"><span class="brand-mark">R<span>M</span></span><span>BACK TO STUDIO <b>↗</b></span></a><span class="experience-kind">SPATIAL STUDY <i>002</i></span><span class="experience-live"><i></i> LIVE EXPERIMENT</span></div>
+  <main class="cube-main">
+    <section class="cube-copy"><p class="eyebrow"><span class="eyebrow-line"></span> RM LAB / EXPERIMENT 002</p><h1>Space is<br><em>playable.</em></h1><p>A six-sided object tuned to follow movement. Drag to take control, or explore with your pointer.</p><div class="cube-instructions"><span><b>01</b> MOVE POINTER</span><span><b>02</b> DRAG TO ROTATE</span><span><b>03</b> ARROW KEYS</span></div><div class="cube-actions"><button type="button" data-reset-cube>RESET POSITION <span>↺</span></button><span class="cube-readout" data-readout>ROT X  —  ROT Y</span></div></section>
+    <section class="cube-playground" aria-label="Interactive three-dimensional cube">
+      <div class="cube-backlight"></div><div class="cube-orbit orbit-a"></div><div class="cube-orbit orbit-b"></div><div class="cube-coordinate coordinate-a">RM / 3D<br>AXIS SYSTEM</div><div class="cube-coordinate coordinate-b">FIG. 002<br>6 SURFACES</div>
+      <div class="cube-scene" data-cube-scene tabindex="0" role="application" aria-label="Interactive 3D cube. Move pointer, drag, or use arrow keys to rotate.">
+        <div class="cube-container" data-cube>
+          <div class="cube-face face-front"><img src="./images/face-1.svg" alt="" draggable="false"><span>01 / FRONT</span></div>
+          <div class="cube-face face-right"><img src="./images/face-2.svg" alt="" draggable="false"><span>02 / RIGHT</span></div>
+          <div class="cube-face face-back"><img src="./images/face-3.svg" alt="" draggable="false"><span>03 / BACK</span></div>
+          <div class="cube-face face-left"><img src="./images/face-4.svg" alt="" draggable="false"><span>04 / LEFT</span></div>
+          <div class="cube-face face-top"><img src="./images/face-5.svg" alt="" draggable="false"><span>05 / TOP</span></div>
+          <div class="cube-face face-bottom"><img src="./images/face-6.svg" alt="" draggable="false"><span>06 / BOTTOM</span></div>
+        </div>
+      </div>
+      <div class="cube-ground"></div>
+      <div class="cube-hover-note"><span class="note-dot"></span> INTERACTION ACTIVE <span class="note-divider">/</span> LOCAL RENDER</div>
+    </section>
+  </main>
+  <footer class="experience-footer cube-footer"><span>RM / INTERACTION SYSTEMS</span><span>CSS 3D · REQUESTANIMATIONFRAME</span><a href="../image-stack/">PREVIOUS EXPERIMENT <b>↗</b></a></footer>
+</body>
+</html>
