@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080809">
+  <meta name="description" content="An interactive image stack experiment by RM — layered motion, shape, parallax, and depth.">
+  <title>Image Stack — RM Lab</title>
+  <link rel="stylesheet" href="../../assets/rm.css">
+  <link rel="stylesheet" href="./style.css">
+  <script defer src="./script.js"></script>
+</head>
+<body class="experience-page stack-page">
+  <div class="experience-topbar"><a class="experience-brand" href="../../"><span class="brand-mark">R<span>M</span></span><span>BACK TO STUDIO <b>↗</b></span></a><span class="experience-kind">INTERACTION STUDY <i>001</i></span><span class="experience-live"><i></i> LIVE EXPERIMENT</span></div>
+  <main class="experience-main">
+    <div class="experience-intro"><div><p class="eyebrow"><span class="eyebrow-line"></span> RM LAB / EXPERIMENT 001</p><h1>Image <em>Stack.</em></h1><p class="experience-description">One image. Ten layers. A study in depth, gesture, and the feeling of motion.</p></div><div class="experience-tip"><span class="tip-symbol">↗</span><p>Move across the image.<br>Change the rules below.</p></div></div>
+    <div class="stack-layout">
+      <section class="stack-stage-wrap" aria-label="Interactive image stack">
+        <div class="stage-meta"><span>FIG. 001 / LAYER STUDY</span><span class="stage-state"><i></i><span data-stage-state>READY TO MOVE</span></span></div>
+        <div class="image-container" data-image-stage data-shape="rectangle" tabindex="0" role="img" aria-label="Interactive stack of ten layered editorial portrait images. Use a pointer or keyboard focus to explore.">
+          <div class="image-stack" data-image-stack>
+            <div class="image-layer" data-index="0"><img src="../../assets/images/portrait-fashion.webp" alt="" draggable="false" fetchpriority="high"></div>
+            <div class="image-layer" data-index="1"><img src="../../assets/images/portrait-fashion.webp" alt="" draggable="false"></div>
+            <div class="image-layer" data-index="2"><img src="../../assets/images/portrait-fashion.webp" alt="" draggable="false"></div>
+            <div class="image-layer" data-index="3"><img src="../../assets/images/portrait-fashion.webp" alt="" draggable="false"></div>
+            <div class="image-layer" data-index="4"><img src="../../assets/images/portrait-fashion.webp" alt="" draggable="false"></div>
+            <div class="image-layer" data-index="5"><img src="../../assets/images/portrait-fashion.webp" alt="" draggable="false"></div>
+            <div class="image-layer" data-index="6"><img src="../../assets/images/portrait-fashion.webp" alt="" draggable="false"></div>
+            <div class="image-layer" data-index="7"><img src="../../assets/images/portrait-fashion.webp" alt="" draggable="false"></div>
+            <div class="image-layer" data-index="8"><img src="../../assets/images/portrait-fashion.webp" alt="" draggable="false"></div>
+            <div class="image-layer" data-index="9"><img src="../../assets/images/portrait-fashion.webp" alt="" draggable="false"></div>
+          </div>
+          <div class="stage-corner corner-tl">RM®</div><div class="stage-corner corner-br">MOVE TO DISTORT</div>
+          <div class="stage-crosshair crosshair-x"></div><div class="stage-crosshair crosshair-y"></div>
+        </div>
+        <div class="stage-caption"><span>01 — COMPOSE</span><span>02 — INTERACT</span><span>03 — RECOMPOSE</span></div>
+      </section>
+      <aside class="stack-controls" aria-label="Image Stack controls">
+        <div class="control-heading"><div><span class="control-kicker">LIVE PARAMETERS</span><h2>Make it yours.</h2></div><button class="reset-control" type="button" data-reset>RESET ↺</button></div>
+        <div class="control-group"><div class="control-label"><span>01 / SHAPE</span><span class="control-value" data-shape-value>RECTANGLE</span></div><div class="shape-picker" data-shape-picker>
+          <button class="shape-button is-selected" type="button" data-shape="rectangle" aria-pressed="true"><i class="shape-icon shape-rectangle"></i><span>RECT</span></button>
+          <button class="shape-button" type="button" data-shape="circle" aria-pressed="false"><i class="shape-icon shape-circle"></i><span>CIRCLE</span></button>
+          <button class="shape-button" type="button" data-shape="diamond" aria-pressed="false"><i class="shape-icon shape-diamond"></i><span>DIAMOND</span></button>
+          <button class="shape-button" type="button" data-shape="hexagon" aria-pressed="false"><i class="shape-icon shape-hexagon"></i><span>HEX</span></button>
+        </div></div>
+        <div class="control-group"><div class="control-label"><span>02 / BEHAVIOUR</span><span class="control-hint">TOGGLE ON / OFF</span></div><div class="effect-grid">
+          <button type="button" data-effect="rotation" aria-pressed="false"><span>Rotation</span><i></i></button>
+          <button type="button" data-effect="blur" aria-pressed="false"><span>Optical blur</span><i></i></button>
+          <button type="button" data-effect="color" aria-pressed="false"><span>Monochrome</span><i></i></button>
+          <button type="button" data-effect="opacity" aria-pressed="false"><span>Fade depth</span><i></i></button>
+          <button type="button" data-effect="parallax" aria-pressed="false"><span>Parallax</span><i></i></button>
+          <button type="button" data-effect="threeD" aria-pressed="false"><span>3D tilt</span><i></i></button>
+        </div></div>
+        <div class="control-group tuner-group" data-tuner hidden><div class="control-label"><span>03 / GEOMETRY</span><span class="control-hint">LIVE TUNING</span></div>
+          <label class="range-row"><span>TILT</span><input data-tune="tilt" type="range" min="4" max="42" value="22"><output data-output="tilt">22°</output></label>
+          <label class="range-row"><span>TRAVEL</span><input data-tune="pan" type="range" min="10" max="110" value="52"><output data-output="pan">52px</output></label>
+          <label class="range-row"><span>DEPTH</span><input data-tune="depth" type="range" min="12" max="52" value="28"><output data-output="depth">28px</output></label>
+          <label class="range-row"><span>AMPLITUDE</span><input data-tune="amp" type="range" min="10" max="100" value="58"><output data-output="amp">0.58</output></label>
+        </div>
+        <p class="control-footnote"><span>✳</span> The best motion is felt before it is noticed.</p>
+      </aside>
+    </div>
+    <footer class="experience-footer"><span>RM / INTERACTION SYSTEMS</span><span>LOCAL ASSETS · ZERO CDN</span><a href="../cube-3d/">NEXT EXPERIMENT <b>↗</b></a></footer>
+  </main>
+</body>
+</html>
