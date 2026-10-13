@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#08080b">
-  <meta name="description" content="Spatial Cube by RM — a six-sided interactive study in motion, image depth, and pointer-driven 3D.">
+  <meta name="description" content="RM Spatial Scene combines a pointer-driven six-face 3D cube with a floating ten-layer image stack in one interactive, responsive hero.">
   <meta property="og:title" content="Spatial Cube — RM Interactive Engineering">
-  <meta property="og:description" content="Six surfaces. One living object. Move through a spatial experiment built to respond.">
+  <meta property="og:description" content="A six-sided 3D cube and a floating ten-layer image stack share one interactive spatial scene.">
   <meta property="og:type" content="website">
   <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
   <link rel="preload" as="image" href="./experiences/cube-3d/images/face-1.svg" fetchpriority="high">
@@ -73,6 +73,24 @@
               <div class="face"><img src="./experiences/cube-3d/images/face-6.svg" alt="Graphic on cube face six" draggable="false"></div>
             </div>
           </div>
+        </div>
+        <div class="stack-satellite" aria-label="Floating ten-layer image stack experiment">
+          <button class="floating-stack" type="button" data-floating-stack aria-pressed="false" aria-label="Pin the floating image layers open">
+            <span class="floating-stack-topline" aria-hidden="true"><span>RM / STACK 001</span><span data-stack-status>DRIFT</span></span>
+            <span class="floating-stack-planes" data-stack-planes>
+            <span class="floating-stack-plane" data-stack-layer data-layer-index="0"><img src="./assets/images/portrait-fashion.svg" alt="" draggable="false" fetchpriority="high"></span>
+            <span class="floating-stack-plane" data-stack-layer data-layer-index="1"><img src="./assets/images/portrait-fashion.svg" alt="" draggable="false" loading="lazy"></span>
+            <span class="floating-stack-plane" data-stack-layer data-layer-index="2"><img src="./assets/images/portrait-fashion.svg" alt="" draggable="false" loading="lazy"></span>
+            <span class="floating-stack-plane" data-stack-layer data-layer-index="3"><img src="./assets/images/portrait-fashion.svg" alt="" draggable="false" loading="lazy"></span>
+            <span class="floating-stack-plane" data-stack-layer data-layer-index="4"><img src="./assets/images/portrait-fashion.svg" alt="" draggable="false" loading="lazy"></span>
+            <span class="floating-stack-plane" data-stack-layer data-layer-index="5"><img src="./assets/images/portrait-fashion.svg" alt="" draggable="false" loading="lazy"></span>
+            <span class="floating-stack-plane" data-stack-layer data-layer-index="6"><img src="./assets/images/portrait-fashion.svg" alt="" draggable="false" loading="lazy"></span>
+            <span class="floating-stack-plane" data-stack-layer data-layer-index="7"><img src="./assets/images/portrait-fashion.svg" alt="" draggable="false" loading="lazy"></span>
+            <span class="floating-stack-plane" data-stack-layer data-layer-index="8"><img src="./assets/images/portrait-fashion.svg" alt="" draggable="false" loading="lazy"></span>
+            <span class="floating-stack-plane" data-stack-layer data-layer-index="9"><img src="./assets/images/portrait-fashion.svg" alt="" draggable="false" loading="lazy"></span>
+            </span>
+            <span class="floating-stack-caption" aria-hidden="true"><span>IMAGE STACK</span><span data-stack-action>HOVER / CLICK TO PIN ↗</span></span>
+          </button>
         </div>
         <div class="visual-floor" aria-hidden="true"></div>
         <div class="visual-readout"><span class="readout-dot"></span><span>POINTER INPUT</span><b>/</b><span data-readout>ROT X 000° · ROT Y 000°</span></div>
