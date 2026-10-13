@@ -212,22 +212,58 @@
   }
 
   // Independent interaction for the floating ten-layer image stack.
-  // It shares the hero scene and pointer, but its open/pin state is separate from cube rotation.
+  // The planes fan open on hover; a separate eased tilt follows the pointer in the same 3D scene.
   const stackButton = document.querySelector("[data-floating-stack]");
   if (stackButton) {
     const stackLayers = Array.from(stackButton.querySelectorAll("[data-stack-layer]"));
+    const stackPlanes = stackButton.querySelector("[data-stack-planes]");
     const stackStatus = stackButton.querySelector("[data-stack-status]");
     const stackAction = stackButton.querySelector("[data-stack-action]");
-    const stackState = { x: 0, y: 0, open: false, pinned: false, hovered: false };
+    const stackState = {
+      x: 0, y: 0, targetX: 0, targetY: 0,
+      open: false, pinned: false, hovered: false, tiltFrame: 0
+    };
+
+    const applyStackTilt = () => {
+      if (!stackPlanes) return;
+      stackPlanes.style.transform =
+        "rotateX(" + (-stackState.y * 6).toFixed(2) + "deg) rotateY(" + (stackState.x * 8).toFixed(2) + "deg)";
+    };
+
+    const animateStackTilt = () => {
+      stackState.tiltFrame = 0;
+      const dx = stackState.targetX - stackState.x;
+      const dy = stackState.targetY - stackState.y;
+      stackState.x += dx * 0.2;
+      stackState.y += dy * 0.2;
+      applyStackTilt();
+      if (Math.abs(dx) > 0.008 || Math.abs(dy) > 0.008) {
+        stackState.tiltFrame = window.requestAnimationFrame(animateStackTilt);
+      } else {
+        stackState.x = stackState.targetX;
+        stackState.y = stackState.targetY;
+        applyStackTilt();
+      }
+    };
+
+    const scheduleStackTilt = () => {
+      if (reduceMotion.matches) {
+        stackState.x = stackState.targetX;
+        stackState.y = stackState.targetY;
+        applyStackTilt();
+        return;
+      }
+      if (!stackState.tiltFrame) stackState.tiltFrame = window.requestAnimationFrame(animateStackTilt);
+    };
 
     const renderStack = () => {
       const spread = stackState.open ? 1 : 0.12;
       stackLayers.forEach((layer, index) => {
         const direction = index % 2 === 0 ? -1 : 1;
-        const x = stackState.x * (4 + index * 0.42) + direction * index * spread * 2.55;
-        const y = stackState.y * (3 + index * 0.32) - index * spread * 0.78;
+        const x = direction * index * spread * 2.55;
+        const y = -index * spread * 0.78;
         const z = index * spread * 7.2;
-        const rotation = direction * index * spread * 1.02 + stackState.x * index * 0.3;
+        const rotation = direction * index * spread * 1.02;
         const scale = 1 - index * (stackState.open ? 0.008 : 0.001);
         const opacity = index === 0 ? 1 : (stackState.open ? Math.max(0.2, 0.84 - index * 0.063) : 0.18);
         layer.style.zIndex = String(stackLayers.length - index);
@@ -241,6 +277,7 @@
       stackButton.setAttribute("aria-pressed", String(stackState.pinned));
       stackButton.setAttribute("aria-label", stackState.pinned ? "Release the floating image layers" : "Pin the floating image layers open");
       stackButton.classList.toggle("is-open", stackState.open);
+      applyStackTilt();
     };
 
     stackButton.addEventListener("pointerenter", (event) => {
@@ -251,18 +288,30 @@
     stackButton.addEventListener("pointerleave", (event) => {
       stackState.hovered = false;
       if (event.pointerType !== "touch" && !stackState.pinned) stackState.open = false;
+      stackState.targetX = 0;
+      stackState.targetY = 0;
+      scheduleStackTilt();
       renderStack();
     });
     stackButton.addEventListener("pointermove", (event) => {
       if (event.pointerType === "touch") return;
       const rect = stackButton.getBoundingClientRect();
-      stackState.x = Math.max(-1, Math.min(1, ((event.clientX - rect.left) / Math.max(rect.width, 1) - 0.5) * 2));
-      stackState.y = Math.max(-1, Math.min(1, ((event.clientY - rect.top) / Math.max(rect.height, 1) - 0.5) * 2));
-      renderStack();
+      stackState.targetX = Math.max(-1, Math.min(1, ((event.clientX - rect.left) / Math.max(rect.width, 1) - 0.5) * 2));
+      stackState.targetY = Math.max(-1, Math.min(1, ((event.clientY - rect.top) / Math.max(rect.height, 1) - 0.5) * 2));
+      scheduleStackTilt();
     }, { passive: true });
     stackButton.addEventListener("click", () => {
       stackState.pinned = !stackState.pinned;
       stackState.open = stackState.pinned || stackState.hovered;
+      renderStack();
+    });
+    reduceMotion.addEventListener?.("change", () => {
+      if (reduceMotion.matches) {
+        if (stackState.tiltFrame) window.cancelAnimationFrame(stackState.tiltFrame);
+        stackState.tiltFrame = 0;
+        stackState.x = stackState.targetX;
+        stackState.y = stackState.targetY;
+      }
       renderStack();
     });
     renderStack();
