@@ -211,6 +211,63 @@
     console.error("RM Spatial Cube: expected scene, container, #cube and six image faces.");
   }
 
+  // Independent interaction for the floating ten-layer image stack.
+  // It shares the hero scene and pointer, but its open/pin state is separate from cube rotation.
+  const stackButton = document.querySelector("[data-floating-stack]");
+  if (stackButton) {
+    const stackLayers = Array.from(stackButton.querySelectorAll("[data-stack-layer]"));
+    const stackStatus = stackButton.querySelector("[data-stack-status]");
+    const stackAction = stackButton.querySelector("[data-stack-action]");
+    const stackState = { x: 0, y: 0, open: false, pinned: false, hovered: false };
+
+    const renderStack = () => {
+      const spread = stackState.open ? 1 : 0.12;
+      stackLayers.forEach((layer, index) => {
+        const direction = index % 2 === 0 ? -1 : 1;
+        const x = stackState.x * (4 + index * 0.42) + direction * index * spread * 2.55;
+        const y = stackState.y * (3 + index * 0.32) - index * spread * 0.78;
+        const z = index * spread * 7.2;
+        const rotation = direction * index * spread * 1.02 + stackState.x * index * 0.3;
+        const scale = 1 - index * (stackState.open ? 0.008 : 0.001);
+        const opacity = index === 0 ? 1 : (stackState.open ? Math.max(0.2, 0.84 - index * 0.063) : 0.18);
+        layer.style.zIndex = String(stackLayers.length - index);
+        layer.style.transform = "translate3d(" + x.toFixed(2) + "px," + y.toFixed(2) + "px," + z.toFixed(2) + "px) rotateZ(" + rotation.toFixed(2) + "deg) scale(" + scale.toFixed(3) + ")";
+        layer.style.opacity = String(opacity);
+        if (reduceMotion.matches) layer.style.transitionDuration = "1ms";
+        else layer.style.removeProperty("transition-duration");
+      });
+      if (stackStatus) stackStatus.textContent = stackState.pinned ? "PINNED" : (stackState.open ? "ACTIVE" : "DRIFT");
+      if (stackAction) stackAction.textContent = stackState.pinned ? "CLICK TO RELEASE ↗" : (stackState.open ? "CLICK TO PIN ↗" : "HOVER / CLICK TO PIN ↗");
+      stackButton.setAttribute("aria-pressed", String(stackState.pinned));
+      stackButton.setAttribute("aria-label", stackState.pinned ? "Release the floating image layers" : "Pin the floating image layers open");
+      stackButton.classList.toggle("is-open", stackState.open);
+    };
+
+    stackButton.addEventListener("pointerenter", (event) => {
+      stackState.hovered = true;
+      if (event.pointerType !== "touch" && !stackState.pinned) stackState.open = true;
+      renderStack();
+    });
+    stackButton.addEventListener("pointerleave", (event) => {
+      stackState.hovered = false;
+      if (event.pointerType !== "touch" && !stackState.pinned) stackState.open = false;
+      renderStack();
+    });
+    stackButton.addEventListener("pointermove", (event) => {
+      if (event.pointerType === "touch") return;
+      const rect = stackButton.getBoundingClientRect();
+      stackState.x = Math.max(-1, Math.min(1, ((event.clientX - rect.left) / Math.max(rect.width, 1) - 0.5) * 2));
+      stackState.y = Math.max(-1, Math.min(1, ((event.clientY - rect.top) / Math.max(rect.height, 1) - 0.5) * 2));
+      renderStack();
+    }, { passive: true });
+    stackButton.addEventListener("click", () => {
+      stackState.pinned = !stackState.pinned;
+      stackState.open = stackState.pinned || stackState.hovered;
+      renderStack();
+    });
+    renderStack();
+  }
+
   // Subtle pointer-aware light in the mechanic cards, throttled to one frame.
   if (!reduceMotion.matches) {
     document.querySelectorAll(".mechanic-card").forEach((card) => {
