@@ -287,7 +287,7 @@
     });
     stackButton.addEventListener("pointerleave", (event) => {
       stackState.hovered = false;
-      if (event.pointerType !== "touch" && !stackState.pinned) stackState.open = false;
+      if (!stackState.pinned) stackState.open = false;
       stackState.targetX = 0;
       stackState.targetY = 0;
       scheduleStackTilt();
